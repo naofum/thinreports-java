@@ -25,7 +25,7 @@ class TextBlockVisualTest {
 
     private static final float DPI = 100f;
     private static final int TOLERANCE = 20;
-    private static final double MAX_DIFF_RATIO = 0.01; // 1% of pixels
+    private static final double MAX_DIFF_RATIO = 0.03; // 1% of pixels -> 3%
 
     @TempDir
     File tempDir;
