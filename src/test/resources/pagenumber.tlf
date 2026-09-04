@@ -1,0 +1,33 @@
+{
+  "version": "0.9.0",
+  "items": [
+    {
+      "id": "",
+      "type": "page-number",
+      "display": true,
+      "description": "",
+      "x": 250,
+      "y": 800,
+      "width": 100,
+      "height": 20,
+      "style": {
+        "font-family": ["Helvetica"],
+        "font-size": 12,
+        "color": "#000000",
+        "text-align": "center",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "truncate"
+      },
+      "format": "Page {page} of {total}",
+      "target": ""
+    }
+  ],
+  "state": { "layout-guides": [] },
+  "title": "pageno",
+  "report": {
+    "paper-type": "A4",
+    "orientation": "portrait",
+    "margin": [20, 20, 20, 20]
+  }
+}

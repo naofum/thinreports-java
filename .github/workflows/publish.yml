@@ -1,0 +1,36 @@
+name: Publish to GitHub Packages
+
+# Publishes the core artifact (jar + sources + javadoc) to GitHub Packages
+# when a version tag is pushed (e.g. v1.0.0), or manually via workflow_dispatch.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          # Configures ~/.m2/settings.xml with a "github" server using GITHUB_TOKEN.
+          server-id: github
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_TOKEN
+          cache: maven
+
+      - name: Deploy
+        env:
+          MAVEN_USERNAME: ${{ github.actor }}
+          MAVEN_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Tests already run in CI; skip here to keep publish fast and deterministic.
+        run: mvn -B -DskipTests deploy
