@@ -9,6 +9,8 @@ import java.util.Map;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.github.naofum.thinreports.TRGenerator;
@@ -41,6 +43,7 @@ class EstimateJaExampleTest {
     }
 
     @Test
+    @EnabledOnOs(OS.WINDOWS)
     void generatesEstimateJaPdf() throws Exception {
         TRGenerator generator = new TRGenerator();
 

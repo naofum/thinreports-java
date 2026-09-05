@@ -6,7 +6,7 @@
 
   <groupId>com.github.naofum</groupId>
   <artifactId>thinreports-java-examples</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
   <name>thinreports-java-examples</name>
