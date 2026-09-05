@@ -76,7 +76,7 @@ their `settings.xml`, plus this repository in their `pom.xml`:
 <dependency>
   <groupId>com.github.naofum</groupId>
   <artifactId>thinreports-java</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 

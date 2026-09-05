@@ -19,7 +19,7 @@ PDF を生成する Java ライブラリを開発する。Ruby版がサポート
 |------|------|
 | groupId | `com.github.naofum` |
 | artifactId | `thinreports-java` |
-| version | `1.0.0` |
+| version | `1.0.1` |
 | Java | 21 |
 | ライセンス | Apache License 2.0 |
 
