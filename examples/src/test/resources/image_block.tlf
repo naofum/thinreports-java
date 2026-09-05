@@ -1,0 +1,139 @@
+{
+  "version": "0.9.0",
+  "items": [
+    {
+      "id": "local_image",
+      "type": "image-block",
+      "display": true,
+      "description": "",
+      "x": 115.5,
+      "y": 70,
+      "width": 374.2,
+      "height": 222.1,
+      "style": {
+        "position-x": "center",
+        "position-y": "middle"
+      }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 115,
+      "y": 45,
+      "width": 149.1,
+      "height": 18,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 16,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "file/image.png"
+      ]
+    },
+    {
+      "id": "remote_image",
+      "type": "image-block",
+      "display": true,
+      "description": "",
+      "x": 115.5,
+      "y": 330,
+      "width": 374.2,
+      "height": 222.1,
+      "style": {
+        "position-x": "center",
+        "position-y": "middle"
+      }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 115,
+      "y": 305,
+      "width": 460.2,
+      "height": 18,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 16,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "http://www.thinreports.org/assets/logos/thinreports-logo-v.png"
+      ]
+    },
+    {
+      "id": "base64_image",
+      "type": "image-block",
+      "display": true,
+      "description": "",
+      "x": 115.5,
+      "y": 600,
+      "width": 374.2,
+      "height": 222.1,
+      "style": {
+        "position-x": "center",
+        "position-y": "middle"
+      }
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 115,
+      "y": 580,
+      "width": 374.3,
+      "height": 18,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 16,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": []
+      },
+      "texts": [
+        "Red dot(Base64)"
+      ]
+    }
+  ],
+  "state": {
+    "layout-guides": []
+  },
+  "title": "",
+  "report": {
+    "paper-type": "A4",
+    "orientation": "portrait",
+    "margin": [
+      20,
+      20,
+      20,
+      20
+    ]
+  }
+}

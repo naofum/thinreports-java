@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>thinreports-java-examples</name>
-  <description>Examples for thinreports-java: barcode / QR / chart image generation fed into image-block elements.</description>
+  <description>Examples for thinreports-java: Java ports of the thinreports-examples samples (text-block, image-block, event, eudc, multiple-layout, permission, estimate/estimate-ja, list basic/advanced/group-rows) plus barcode / QR / chart image generation fed into image-block elements.</description>
 
   <licenses>
     <license>

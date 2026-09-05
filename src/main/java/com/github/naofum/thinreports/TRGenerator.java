@@ -57,6 +57,9 @@ public class TRGenerator {
     private PDDocument document;
     private Settings settings = new Settings();
 
+    /** Optional programmatic PDF security; overrides any tlf security_settings. */
+    private SecuritySettings securitySettings;
+
     /** Detail rows collected per list id, applied on the next render/save. */
     private final Map<String, List<Map<String, Object>>> listRows = new HashMap<>();
 
@@ -167,6 +170,21 @@ public class TRGenerator {
 
     public void setSettings(Settings settings) {
         this.settings = settings;
+    }
+
+    /**
+     * Return the programmatic PDF security settings, or {@code null} if none set.
+     */
+    public SecuritySettings getSecuritySettings() {
+        return securitySettings;
+    }
+
+    /**
+     * Apply PDF security (encryption) programmatically. When set, this takes
+     * precedence over any {@code security_settings} defined in the layout file.
+     */
+    public void setSecuritySettings(SecuritySettings securitySettings) {
+        this.securitySettings = securitySettings;
     }
 
     public PDDocument getDocument() {
@@ -330,6 +348,9 @@ public class TRGenerator {
 
         JSONObject settingsJson = json.optJSONObject("settings");
         if (settingsJson == null) {
+            if (securitySettings != null) {
+                applySecurity(securitySettings);
+            }
             return;
         }
         info.setTitle(settingsJson.optString("title", null));
@@ -337,9 +358,23 @@ public class TRGenerator {
         info.setAuthor(settingsJson.optString("author", null));
 
         JSONObject security = settingsJson.optJSONObject("security_settings");
-        if (security != null) {
+        if (securitySettings != null) {
+            applySecurity(securitySettings);
+        } else if (security != null) {
             applySecurity(security);
         }
+    }
+
+    private void applySecurity(SecuritySettings s) throws IOException {
+        AccessPermission ap = new AccessPermission();
+        ap.setCanPrint(s.isCanPrint());
+        ap.setCanModify(s.isCanModify());
+        ap.setCanExtractContent(s.isCanExtractContent());
+        StandardProtectionPolicy policy =
+                new StandardProtectionPolicy(s.getOwnerPassword(), s.getUserPassword(), ap);
+        policy.setEncryptionKeyLength(128);
+        policy.setPermissions(ap);
+        document.protect(policy);
     }
 
     private void applySecurity(JSONObject security) throws IOException {

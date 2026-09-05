@@ -3,7 +3,7 @@
 Overlay-style report (PDF) generator for Java, compatible with
 [Thinreports](https://www.thinreports.org/) `.tlf` layout templates.
 
-Rewritten from the prototype (`thinreports-dev`) to draw directly on the
+Rewritten from the previous version to draw directly on the
 Apache PDFBox 3.x low-level API — no external flow-layout engine. Each tlf
 element is placed by its absolute coordinates.
 
