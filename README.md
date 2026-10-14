@@ -1,5 +1,7 @@
 # thinreports-java
 
+[![Release](https://jitpack.io/v/naofum/thinreports-java.svg)](https://jitpack.io/#naofum/thinreports-java)
+
 Overlay-style report (PDF) generator for Java, compatible with
 [Thinreports](https://www.thinreports.org/) `.tlf` layout templates.
 
@@ -7,11 +9,36 @@ Rewritten from the previous version to draw directly on the
 Apache PDFBox 3.x low-level API — no external flow-layout engine. Each tlf
 element is placed by its absolute coordinates.
 
-- groupId / artifactId / version: `com.github.naofum:thinreports-java:1.0.0`
+- groupId / artifactId / version: `com.github.naofum:thinreports-java:1.0.2`
 - Java 21
 - Apache License 2.0
 
 See `docs/specification.md` for the full specification, roadmap and open issues.
+
+## Install
+
+The library is published via [JitPack](https://jitpack.io/#naofum/thinreports-java).
+
+Add the JitPack repository to your `pom.xml`:
+
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+Then add the dependency:
+
+```xml
+<dependency>
+    <groupId>com.github.naofum</groupId>
+    <artifactId>thinreports-java</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
 
 ## Usage
 
