@@ -9,7 +9,7 @@ Rewritten from the previous version to draw directly on the
 Apache PDFBox 3.x low-level API — no external flow-layout engine. Each tlf
 element is placed by its absolute coordinates.
 
-- groupId / artifactId / version: `com.github.naofum:thinreports-java:1.0.4`
+- groupId / artifactId / version: `com.github.naofum:thinreports-java:1.0.5`
 - Java 21
 - Apache License 2.0
 
@@ -36,7 +36,7 @@ Then add the dependency:
 <dependency>
     <groupId>com.github.naofum</groupId>
     <artifactId>thinreports-java</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
