@@ -9,7 +9,7 @@ Rewritten from the previous version to draw directly on the
 Apache PDFBox 3.x low-level API — no external flow-layout engine. Each tlf
 element is placed by its absolute coordinates.
 
-- groupId / artifactId / version: `com.github.naofum:thinreports-java:1.0.3`
+- groupId / artifactId / version: `com.github.naofum:thinreports-java:1.0.4`
 - Java 21
 - Apache License 2.0
 
@@ -36,7 +36,7 @@ Then add the dependency:
 <dependency>
     <groupId>com.github.naofum</groupId>
     <artifactId>thinreports-java</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
@@ -55,6 +55,30 @@ generator.newDocument("report.tlf", data);   // first page
 generator.addPage("report.tlf", data);        // additional pages (optional)
 generator.save("out.pdf");
 generator.close();
+```
+
+You can also write to an `OutputStream` (e.g. an HTTP response) or retrieve the
+PDF as a `byte[]`. The stream is not closed by `save(OutputStream)`.
+
+```java
+generator.newDocument("report.tlf", data);
+
+// Write to an OutputStream
+generator.save(response.getOutputStream());
+
+// Or get the bytes directly
+byte[] pdf = generator.toByteArray();
+
+generator.close();
+```
+
+Templates can be loaded from an `InputStream`, which is useful for resources
+bundled in a JAR or classpath:
+
+```java
+try (InputStream in = getClass().getResourceAsStream("/report.tlf")) {
+    generator.newDocument(in, data);
+}
 ```
 
 ## Supported elements

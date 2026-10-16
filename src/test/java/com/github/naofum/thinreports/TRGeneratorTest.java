@@ -3,7 +3,10 @@ package com.github.naofum.thinreports;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,6 +77,85 @@ class TRGeneratorTest {
 
         try (PDDocument doc = Loader.loadPDF(out)) {
             assertEquals(2, doc.getNumberOfPages());
+        }
+    }
+
+    @Test
+    void saveToOutputStreamLeavesStreamOpen() throws Exception {
+        TRGenerator generator = new TRGenerator();
+        generator.getSettings().setIpamincho(resource("ipam.ttf"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("single_line_left", "Stream output");
+
+        generator.newDocument(resource("text_block.tlf"), map);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        generator.save(baos);
+        generator.close();
+
+        assertTrue(baos.size() > 0, "output stream should contain PDF bytes");
+        try (PDDocument doc = Loader.loadPDF(baos.toByteArray())) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+    }
+
+    @Test
+    void toByteArrayReturnsValidPdf() throws Exception {
+        TRGenerator generator = new TRGenerator();
+        generator.getSettings().setIpamincho(resource("ipam.ttf"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("single_line_left", "Byte array output");
+
+        generator.newDocument(resource("text_block.tlf"), map);
+        byte[] bytes = generator.toByteArray();
+        generator.close();
+
+        assertTrue(bytes.length > 0, "byte array should contain PDF bytes");
+        try (PDDocument doc = Loader.loadPDF(bytes)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+    }
+
+    @Test
+    void saveCanBeCalledMultipleTimes() throws Exception {
+        TRGenerator generator = new TRGenerator();
+        generator.getSettings().setIpamincho(resource("ipam.ttf"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("single_line_left", "Multiple saves");
+
+        generator.newDocument(resource("text_block.tlf"), map);
+
+        File first = new File(tempDir, "first.pdf");
+        File second = new File(tempDir, "second.pdf");
+        generator.save(first.getPath());
+        generator.save(second.getPath());
+        generator.close();
+
+        try (PDDocument doc = Loader.loadPDF(first)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+        try (PDDocument doc = Loader.loadPDF(second)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+    }
+
+    @Test
+    void newDocumentFromInputStream() throws Exception {
+        TRGenerator generator = new TRGenerator();
+        generator.getSettings().setIpamincho(resource("ipam.ttf"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("single_line_left", "InputStream template");
+
+        try (FileInputStream in = new FileInputStream(resource("text_block.tlf"))) {
+            generator.newDocument(in, map);
+        }
+
+        byte[] bytes = generator.toByteArray();
+        generator.close();
+
+        assertTrue(bytes.length > 0, "PDF should be generated from InputStream template");
+        try (PDDocument doc = Loader.loadPDF(bytes)) {
+            assertEquals(1, doc.getNumberOfPages());
         }
     }
 }

@@ -15,8 +15,11 @@
  */
 package com.github.naofum.thinreports;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -197,6 +200,10 @@ public class TRGenerator {
         newDocument(readTlf(tlffile), map);
     }
 
+    public void newDocument(InputStream in, Map<String, Object> map) throws IOException {
+        newDocument(readTlf(in), map);
+    }
+
     public void newDocument(JSONObject json, Map<String, Object> map) throws IOException {
         this.document = new PDDocument();
         this.pages.clear();
@@ -212,6 +219,10 @@ public class TRGenerator {
 
     public void addPage(String tlffile, Map<String, Object> map) throws IOException {
         addPage(readTlf(tlffile), map);
+    }
+
+    public void addPage(InputStream in, Map<String, Object> map) throws IOException {
+        addPage(readTlf(in), map);
     }
 
     public void addPage(JSONObject json, Map<String, Object> map) throws IOException {
@@ -404,11 +415,35 @@ public class TRGenerator {
     // ---- output ----------------------------------------------------------------
 
     public void save(String filename) throws IOException {
+        ensureRendered();
+        document.save(new File(filename));
+    }
+
+    /**
+     * Write the generated PDF to the supplied output stream.
+     * The stream is <strong>not</strong> closed by this method.
+     */
+    public void save(OutputStream out) throws IOException {
+        ensureRendered();
+        document.save(out);
+    }
+
+    /**
+     * Generate the PDF and return it as a byte array.
+     */
+    public byte[] toByteArray() throws IOException {
+        ensureRendered();
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            document.save(baos);
+            return baos.toByteArray();
+        }
+    }
+
+    private void ensureRendered() throws IOException {
         if (!rendered) {
             renderAll();
             rendered = true;
         }
-        document.save(new File(filename));
     }
 
     public void close() throws IOException {
@@ -420,6 +455,11 @@ public class TRGenerator {
 
     private JSONObject readTlf(String file) throws IOException {
         String content = Files.readString(new File(file).toPath(), StandardCharsets.UTF_8);
+        return new JSONObject(content);
+    }
+
+    private JSONObject readTlf(InputStream in) throws IOException {
+        String content = new String(in.readAllBytes(), StandardCharsets.UTF_8);
         return new JSONObject(content);
     }
 }
